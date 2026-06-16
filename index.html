@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <title>Analisador Sintático</title>
+  </head>
+
+  <body class="bg-gray-50 text-gray-900 min-h-screen">
+    
+    <header class="border-b border-gray-200 bg-white">
+      <div
+        class="max-w-7xl mx-auto px-6 py-10 flex flex-col items-center text-center">
+        <h1 class="text-4xl font-bold tracking-tight text-gray-900">
+          Analisador Sintático
+        </h1>
+
+        <p class="mt-3 text-gray-500">por:</p>
+
+        <a
+          target="_blank"
+          class="mt-2 text-gray-600 hover:text-gray-900 transition duration-200 font-medium">
+          Anderson Cagnini e Felipe Meneguzzi
+        </a>
+      </div>
+    </header>
+
+    
+    <main class="max-w-7xl mx-auto px-6 py-10 space-y-8">
+      
+      <section
+        class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <h3 class="text-2xl font-semibold mb-6 text-gray-900">
+          Inserir Sentença
+        </h3>
+
+        <div class="flex flex-col md:flex-row gap-4">
+          <input
+            id="tokenInput"
+            type="text"
+            placeholder="Digite a sentença"
+            onDrop="return false"
+            oninput="initAutomaton()"
+            class="flex-1 bg-white border border-gray-300 rounded-xl px-4 py-3 outline-none focus:border-gray-500 transition" />
+
+          <button
+            id="tokenGenerate"
+            onclick="initSentence()"
+            class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition duration-200">
+            Gerar
+          </button>
+        </div>
+      </section>
+
+      
+      <section
+        class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+        
+        <div
+          id="dropdown-click"
+          onclick="toggleDropdown()"
+          class="px-6 py-5 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition">
+          <h3 class="text-2xl font-semibold text-gray-900">
+            Informações
+          </h3>
+        </div>
+
+        <div class="p-6 space-y-8 infos">
+          
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <div
+              class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800">
+                Gramática
+              </h3>
+
+              <div id="grammarContent" class="space-y-2 text-gray-700 font-mono"></div>
+            </div>
+
+            
+            <div
+              class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800">
+                First
+              </h3>
+
+              <div id="firstContent" class="space-y-2 text-gray-700 font-mono"></div>
+            </div>
+
+            
+            <div
+              class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+              <h3 class="text-xl font-semibold mb-4 text-gray-800">
+                Follow
+              </h3>
+
+              <div id="followContent" class="space-y-2 text-gray-700 font-mono"></div>
+            </div>
+          </div>
+
+          
+          <div>
+            <h3 class="text-2xl font-semibold mb-5 text-gray-900">
+              Tabela de Parsing
+            </h3>
+
+            <div class="overflow-x-auto rounded-xl border border-gray-200">
+              <table class="min-w-full border-collapse">
+                <thead id="parsingTableHead" class="bg-gray-100"></thead>
+                <tbody id="parsingTableBody" class="text-center"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section
+        class="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+        <div
+          class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div>
+            <h3 class="text-2xl font-semibold mb-4 text-gray-900">
+              Passos
+            </h3>
+
+            <div class="flex flex-wrap gap-4">
+              <button
+                id="nextPass"
+                onclick="nextPass()"
+                class="bg-gray-800 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition">
+                Próximo Passo
+              </button>
+
+              <button
+                id="lastPass"
+                onclick="checkEnd()"
+                class="bg-gray-200 hover:bg-gray-300 text-gray-900 font-semibold px-6 py-3 rounded-xl transition">
+                Resolver
+              </button>
+            </div>
+
+            <p id="stepCounter" class="mt-4 text-gray-600 font-medium"></p>
+          </div>
+        </div>
+
+        
+        <div class="mt-8 overflow-x-auto">
+          <table
+            id="resolutionTable"
+            class="min-w-full border border-gray-200 rounded-xl overflow-hidden"></table>
+
+          <p id="parseStatus"></p>
+
+          <div id="anchor"></div>
+        </div>
+      </section>
+    </main>
+
+    <script src="js/default.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
